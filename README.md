@@ -20,11 +20,16 @@ The training budget lives in [frenetix_rl/gym_environment/configs.yaml](frenetix
 ```yaml
 env_configs:
   training_configs:
-    num_envs: 2               # -> set to ~ your physical CPU core count (e.g. 16)
-    total_timesteps: 100000   # -> raise this (e.g. 2000000; 7000000 ~ the paper)
+    num_envs: 2                # -> RAISE to ~ your physical CPU core count (e.g. 16); biggest speed lever
+    total_timesteps: 10000000  # 10M is already set (> the paper's 7M); lower it if you want a shorter run
   action_configs:
     action_type: weights_and_sampling   # Phase B (already set — leave it)
 ```
+
+> The repo ships ready to train the full Phase B run: **10M timesteps** at
+> `num_envs: 2`. At 10M that is a multi-day run on a typical box — **bump
+> `num_envs` to your core count** (it scales almost linearly), and/or **lower
+> `total_timesteps`** (e.g. 2,000,000 ≈ a solid run) if you want results sooner.
 
 Then train (pick one path below). Output lands in `logs/` (`best_model/`,
 `intermediate_model/` checkpoints, `logs_tensorboard/`).
